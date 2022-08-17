@@ -106,13 +106,12 @@ export default function Home() {
         let amount = 0;
         for (let i = 0; i < balance; i++) {
           const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
-          const claimed = await tokenContract.tokensIdsMinted(tokenId);
+          const claimed = await tokenContract.tokenIdsClaimed(tokenId);
           if (!claimed) {
             amount++;
           }
         }
         setTokensToBeClaimed(BigNumber.from(amount));
-        console.log("token to claim", amount);
       }
     } catch (error) {
       console.error(error);
@@ -284,7 +283,7 @@ export default function Home() {
 
         <button
           className={styles.button}
-          disabled={!tokenAmount > 0}
+          disabled={!(tokenAmount > 0)}
           onClick={() => mintCryptoDevToken(tokenAmount)}
         >
           Mint Tokens
