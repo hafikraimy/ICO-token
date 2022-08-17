@@ -234,23 +234,25 @@ export default function Home() {
     }
   };
 
+  // if owner is connected, withdrawCoins() is called
+  const withdraw = () => {
+    if(walletConnected && isOwner){
+      return (
+        <div>
+          <button className={styles.button1} onClick={withdrawCoins}>
+            Withdraw Coins
+          </button>
+        </div>
+      );
+    }
+  }
+
   // returns a button based on the state of the dapp
   const renderButton = () => {
     if (loading) {
       return (
         <div>
           <button className={styles.button}>Loading...</button>
-        </div>
-      );
-    }
-
-    // if owner is connected, withdrawCoins() is called
-    if (walletConnected && isOwner) {
-      return (
-        <div>
-          <button className={styles.button1} onClick={withdrawCoins}>
-            Withdraw Coins
-          </button>
         </div>
       );
     }
@@ -332,6 +334,7 @@ export default function Home() {
                 minted!!!
               </div>
               {renderButton()}
+              {withdraw()}
             </div>
           ) : (
             <button className={styles.button} onClick={connectWallet}>
